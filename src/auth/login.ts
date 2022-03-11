@@ -8,13 +8,12 @@ async function signIn(email: string, password: string) {
   .then(async (userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    // console.log(user.getIdToken());
+    console.log(user.getIdToken());
     // Send token back to client
     return user.getIdToken();
   })
   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    return error.code;
   });
 }
 

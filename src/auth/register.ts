@@ -13,8 +13,7 @@ async function register(email: string, password: string) {
     return user.getIdToken();
   })
   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    return error.code;
   });
 }
 
