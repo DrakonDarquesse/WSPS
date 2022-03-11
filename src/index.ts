@@ -3,6 +3,8 @@ import getPort from 'get-port';
 import cors from 'cors';
 import roleRouter from './routes/role';
 import loginRouter from './routes/login';
+import registerRouter from './routes/register';
+
 
 
 (async () => {
@@ -24,6 +26,7 @@ import loginRouter from './routes/login';
 
   app.use('/', roleRouter);
   app.use('/', loginRouter);
+  app.use('/', registerRouter);
 
   app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`);
