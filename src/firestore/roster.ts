@@ -3,69 +3,69 @@ import { collection, getDocs , getFirestore, addDoc, doc, setDoc, deleteDoc  } f
 import { app } from '../config';
 import { auth } from '../auth/login';
 
-async function getRole() {
-  console.log('bb');
+async function getRoster() {
+  console.log('ee');
   onAuthStateChanged(auth, (user)=> {
     console.log(user.uid);
 
   })
   const db = getFirestore(app);
-  const roleCol = collection(db, 'role');
-  const roleSnapshot = await getDocs(roleCol);
-  const roleList = await roleSnapshot.docs.map(async doc => { 
+  const rosterCol = collection(db, 'roster');
+  const rosterSnapshot = await getDocs(rosterCol);
+  const rosterList = await rosterSnapshot.docs.map(doc => { 
     const data = doc.data();
     const id = doc.id;
-    const dataWithId = { id, ...data };
-    return dataWithId;
+    return { id, ...data };
   });
 
-  return roleList;
+  return rosterList;
 }
 
-async function addRole(role: object) {
+async function addRoster(roster: object) {
   console.log('cc');
   onAuthStateChanged(auth, (user)=> {
     console.log(user.uid);
 
   })
   const db = getFirestore(app);
-  delete role['id'];
-  return await addDoc(collection(db, 'role'), role).then(()=> {
+  delete roster['id'];
+  return await addDoc(collection(db, 'roster'), roster).then(()=> {
     return 'add success';
   })
   .catch(()=> {return 'failure';}) 
 }
 
-async function editRole(role: object) {
+async function editRoster(roster: object) {
   console.log('jj');
   onAuthStateChanged(auth, (user)=> {
     console.log(user.uid);
 
   })
   const db = getFirestore(app);
-  const id = role['id'];
-  delete role['id'];
-  console.log(role);
-  return await setDoc(doc(db, 'role', id), role).then(()=> {
+  const id = roster['id'];
+  delete roster['id'];
+  console.log(roster, 111);
+  return await setDoc(doc(db, 'roster', id), roster).then(()=> {
+    console.log(111);
     return 'edit success';
   })
   .catch(()=> {return 'failure';}) 
 }
 
-async function deleteRole(role: object) {
+async function deleteRoster(roster: object) {
   console.log('dd');
   onAuthStateChanged(auth, (user)=> {
     console.log(user.uid);
 
   })
   const db = getFirestore(app);
-  const id = role['id'];
-  delete role['id'];
-  console.log(role);
-  return await deleteDoc(doc(db, 'role', id)).then(()=> {
+  const id = roster['id'];
+  delete roster['id'];
+  console.log(roster);
+  return await deleteDoc(doc(db, 'roster', id)).then(()=> {
     return 'del success';
   })
   .catch(()=> {return 'failure';}) 
 }
 
-export {getRole, addRole, editRole, deleteRole};
+export { getRoster, addRoster, editRoster, deleteRoster };

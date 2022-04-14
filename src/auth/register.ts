@@ -8,12 +8,12 @@ async function register(email: string, password: string) {
   .then(async (userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    // console.log(user.getIdToken());
+    console.log(user.uid);
     // Send token back to client
-    return user.getIdToken();
+    return user;
   })
   .catch((error) => {
-    return error.code;
+    return error == null ? error.code: undefined;
   });
 }
 
