@@ -3,17 +3,18 @@ import { app } from "../config";
 
 const auth = getAuth(app);
 
-async function signIn(email: string, password: string) {
+const signIn = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password)
   .then(async (userCredential) => {
     // Signed in 
     const user = userCredential.user;
     console.log(user.getIdToken());
     // Send token back to client
-    return user.getIdToken();
+    return user.uid;
   })
   .catch((error) => {
-    return error.code;
+     console.dir(error, {depth: null})
+    return error == null ? error.code: undefined;
   });
 }
 

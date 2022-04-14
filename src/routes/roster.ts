@@ -1,36 +1,35 @@
 import express from 'express';
-import { getRole, addRole, editRole, deleteRole } from '../firestore/role';
-
+import { getRoster, addRoster, editRoster, deleteRoster } from '../firestore/roster';
 const router = express.Router();
 
-router.get('/roles', async function (req, res) {
+router.get('/rosters', async function (req, res) {
     // const obj = {name:"John", task:"a", color:0xFF607D8B, isEnabled:true};
-  await getRole().then(async (roles)=> {
-    const r = await Promise.all(roles);
-    res.send(r);
+  await getRoster().then(async (rosterList)=> {
+    console.log(rosterList);
+    res.send(rosterList);
   })
 
 })
 
-router.post('/addRole', (req, res) => {
+router.post('/addRoster', async function (req, res) {
     // const obj = {name:"John", task:"a", color:0xFF607D8B, isEnabled:true};
-  addRole(req.body).then((msg)=> {
+  await addRoster(req.body).then((msg)=> {
     console.log(msg);
     res.send(msg);
   })
 
 })
 
-router.post('/editRole', async function (req, res) {
-  await editRole(req.body).then((data)=> {
+router.post('/editRoster', async function (req, res) {
+  await editRoster(req.body).then((data)=> {
     console.log(data);
     res.send(data);
   })
   .catch(()=> {return 'Something is wrong and I have no idea what';}) 
 })
 
-router.post('/deleteRole', async function (req, res) {
-  await deleteRole(req.body).then((msg)=> {
+router.post('/deleteRoster', async function (req, res) {
+  await deleteRoster(req.body).then((msg)=> {
     console.log(msg);
     res.send(msg);
   })

@@ -3,69 +3,69 @@ import { collection, getDocs , getFirestore, addDoc, doc, setDoc, deleteDoc  } f
 import { app } from '../config';
 import { auth } from '../auth/login';
 
-async function getRole() {
-  console.log('bb');
+async function getRoleDeck() {
+  console.log('ee');
   onAuthStateChanged(auth, (user)=> {
     console.log(user.uid);
 
   })
   const db = getFirestore(app);
-  const roleCol = collection(db, 'role');
-  const roleSnapshot = await getDocs(roleCol);
-  const roleList = await roleSnapshot.docs.map(async doc => { 
+  const roleDeck = collection(db, 'roleDeck');
+  const roleDeckSnapshot = await getDocs(roleDeck);
+  const roleDecks = await roleDeckSnapshot.docs.map(doc => { 
     const data = doc.data();
     const id = doc.id;
-    const dataWithId = { id, ...data };
-    return dataWithId;
+    return { id, ...data };
   });
 
-  return roleList;
+  return roleDecks;
 }
 
-async function addRole(role: object) {
+async function addRoleDeck(roleDeck: object) {
   console.log('cc');
   onAuthStateChanged(auth, (user)=> {
     console.log(user.uid);
 
   })
   const db = getFirestore(app);
-  delete role['id'];
-  return await addDoc(collection(db, 'role'), role).then(()=> {
+  delete roleDeck['id'];
+  return await addDoc(collection(db, 'roleDeck'), roleDeck).then(()=> {
     return 'add success';
   })
   .catch(()=> {return 'failure';}) 
 }
 
-async function editRole(role: object) {
+async function editRoleDeck(roleDeck: object) {
   console.log('jj');
   onAuthStateChanged(auth, (user)=> {
     console.log(user.uid);
 
   })
   const db = getFirestore(app);
-  const id = role['id'];
-  delete role['id'];
-  console.log(role);
-  return await setDoc(doc(db, 'role', id), role).then(()=> {
+  const id = roleDeck['id'];
+  delete roleDeck['id'];
+  console.log(roleDeck, 111);
+  return await setDoc(doc(db, 'roleDeck', id), roleDeck).then(()=> {
+    console.log(111);
     return 'edit success';
   })
   .catch(()=> {return 'failure';}) 
 }
 
-async function deleteRole(role: object) {
+async function deleteRoleDeck(roleDeck: object) {
   console.log('dd');
   onAuthStateChanged(auth, (user)=> {
     console.log(user.uid);
 
   })
   const db = getFirestore(app);
-  const id = role['id'];
-  delete role['id'];
-  console.log(role);
-  return await deleteDoc(doc(db, 'role', id)).then(()=> {
+  const id = roleDeck['id'];
+  delete roleDeck['id'];
+  console.log(roleDeck);
+  return await deleteDoc(doc(db, 'roleDeck', id)).then(()=> {
     return 'del success';
   })
   .catch(()=> {return 'failure';}) 
 }
 
-export {getRole, addRole, editRole, deleteRole};
+export { getRoleDeck, addRoleDeck, editRoleDeck, deleteRoleDeck };
