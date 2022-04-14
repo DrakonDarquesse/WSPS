@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node index.js",
     "lint": "eslint --ext .js,.ts .",
     "build:ts-add-js-extension": "ts-add-js-extension add --dir=dist",
     "test": "echo \"Error: no test specified\" && exit 1"
